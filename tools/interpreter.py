@@ -2,7 +2,7 @@ from . import lexer
 import sys
 
 errtemp = """
-toyoyo error; on self.__line__, {3}:
+toyoyo error; on line {3}:
     {2}
 
 {0}: {1}
