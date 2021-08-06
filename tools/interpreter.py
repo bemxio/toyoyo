@@ -20,6 +20,7 @@ class Interpreter:
         def wrapper(function):
             link = name or function.__name__
             self.__references__[link.upper()] = function
+            if self.debug: print(self.__references__)
         
         return wrapper
     
@@ -67,10 +68,20 @@ class Interpreter:
          
          for i, line, in enumerate(temp):
              self.__line__, self.__count__ = line, i + 1
+             self.execute(line)
+             """
              try:
                  self.execute(line)
              except Exception as e:
                  self.error(type(e).__name__, str(e))
+             """
+    
+    def raw_exec(self, *tokens):
+        keys = (self.__references__.keys(), self.__variables__.keys())     
+        #tokens = lexer.tokenize(self.__line__, *keys)
+         
+        first, args = tokens[0], tokens[1:]
+        return self.__references__[first.value](self, *args)
 
     def getvar(self, name, stringify=False):
         value = self.__variables__.get(name, name)
