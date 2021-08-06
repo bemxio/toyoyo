@@ -37,10 +37,11 @@ class Interpreter:
     def execute(self, line):
         keys = (self.__references__.keys(), self.__variables__.keys())
         
-        tokens = lexer.tokenize(self.__line__, *keys)
+        tokens = lexer.tokenize(line, *keys)
         if not tokens:
             return
         
+        #[print(t.type, t.value) for t in tokens]
         if self.exec_func:
             a = self.exec_func(self, *tokens)
             if a:
@@ -55,6 +56,7 @@ class Interpreter:
         elif first.type == "INITVAR":
             return
         else:
+            #print(first.type, first.value)
             self.error("SyntaxError", "wrong syntax")
 
     def execute_many(self, code, splitter="\n"):
@@ -66,18 +68,17 @@ class Interpreter:
          temp = code.replace(replace, "")
          temp = temp.split(splitter)
          
+         #print(temp)
          for i, line, in enumerate(temp):
              self.__line__, self.__count__ = line, i + 1
-             self.execute(line)
-             """
+
              try:
                  self.execute(line)
              except Exception as e:
                  self.error(type(e).__name__, str(e))
-             """
     
     def raw_exec(self, *tokens):
-        keys = (self.__references__.keys(), self.__variables__.keys())     
+        #keys = (self.__references__.keys(), self.__variables__.keys())
         #tokens = lexer.tokenize(self.__line__, *keys)
          
         first, args = tokens[0], tokens[1:]
