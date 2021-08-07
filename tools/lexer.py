@@ -5,7 +5,7 @@ import re
 variable = re.compile(r'[a-zA-Z_][a-zA-Z0-9_]*')
 string = re.compile(r'\".*?\"')
 integer = re.compile(r'\d+')
-rfloat = re.compile(r'[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)')
+rfloat = re.compile(r'[0-9]+\.[0-9]+')
 
 operators = ["+", "-", "*", "/", ":="]
 

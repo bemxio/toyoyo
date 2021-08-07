@@ -1,12 +1,17 @@
 from tools.interpreter import Interpreter
+import platform
+import math
+import os
 
-toyoyo = Interpreter(debug=False)
+toyoyo = Interpreter(debug=True)
 
 @toyoyo.command()
 def yell(self, *tokens):  
     if len(tokens) == 0:
         value = ""
- 
+    
+    elif tokens[0].type == "COMMAND":
+        value = self.raw_exec(*tokens)
     elif len(tokens) > 1:
         value = self.eval(*tokens)
     elif tokens[0].type == "VARIABLE":
@@ -48,7 +53,33 @@ def convert(self, original, to):
         return float(value)
     elif to.value == "bool":
         return bool(value)
-     
+
+@toyoyo.command(name="round")
+def tyy_round(self, numbert, decimalt=None):
+    if not decimalt:
+        decimal = 0
+    elif decimalt.type == "INTEGER":
+        decimal = decimalt.value
+    else:
+        self.error("WrongTypeError", "'decimal' argument must be int")
+    
+    if numbert.type == "FLOAT":
+        number = numbert.value
+    else:
+        self.error("WrongTypeError", "'number' argument must be float")
+    
+    if decimal == 0:
+        return round(number)
+    else:
+        return round(number, decimal)
+
+@toyoyo.command()
+def clear(self):
+    if platform.system() == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
+
 @toyoyo.on_execute()
 def on_execute(self, *tokens):
     if len(tokens) <= 2:
