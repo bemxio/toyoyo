@@ -13,6 +13,8 @@ class Interpreter:
         self.__references__ = {}
         self.__variables__ = {}
         
+        self.__ifstate__ = 2
+    
         self.exec_func = None
         self.debug = debug
 
@@ -52,7 +54,10 @@ class Interpreter:
         if self.debug: print([(t.type, t.value) for t in tokens])
         
         if first.type == "COMMAND":
-            self.__references__[first.value](self, *args)
+            if self.__ifstate__ or first.value in ("ELSEIF", "ELSE", "END"):
+                self.__references__[first.value](self, *args)
+            else:
+                return
         elif first.type == "INITVAR":
             return
         else:

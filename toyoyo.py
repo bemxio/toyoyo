@@ -80,8 +80,45 @@ def clear(self):
     else:
         os.system("clear")
 
+@toyoyo.command(name="if")
+def tyy_if(self, *statement):
+    if self.eval(*statement):
+        self.__ifstate__ = 1
+    else:
+        self.__ifstate__ = 0
+
+@toyoyo.command(name="elseif")
+def tyy_elseif(self, *statement):
+    print(self.__ifstate__)
+    if self.eval(*statement) and self.__ifstate__ == 0:
+        self.__ifstate__ = 1
+    elif self.__ifstate__ in (0, 1):
+        self.__ifstate__ = 0
+    else:
+        self.error("SyntaxError", "wrong syntax")
+
+@toyoyo.command(name="else")
+def tyy_else(self):
+    #print(self.__ifstate__)
+    if self.__ifstate__ == 1:
+        self.__ifstate__ = 0
+    elif self.__ifstate__ == 0:
+        self.__ifstate__ = 1
+    else:
+        self.error("SyntaxError", "wrong syntax")
+
+@toyoyo.command()
+def end(self):
+    if self.__ifstate__ in (0, 1):
+        self.__ifstate__ = 2
+    else:
+        self.error("SyntaxError", "wrong syntax")
+
 @toyoyo.on_execute()
 def on_execute(self, *tokens):
+    if not self.__ifstate__:
+        return
+
     if len(tokens) <= 2:
         if tokens[0].type == "INITVAR":
             self.error("SyntaxError", "wrong syntax")

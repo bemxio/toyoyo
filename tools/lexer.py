@@ -7,7 +7,7 @@ string = re.compile(r'\".*?\"')
 integer = re.compile(r'\d+')
 rfloat = re.compile(r'[0-9]+\.[0-9]+')
 
-operators = ["+", "-", "*", "/", ":="]
+operators = ["+", "-", "*", "/", ">", "<", ">=", "<=", "==", ":="]
 
 class Token:
     def __init__(self, value, type: str):
