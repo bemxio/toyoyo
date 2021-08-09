@@ -114,6 +114,10 @@ def end(self):
     else:
         self.error("SyntaxError", "wrong syntax")
 
+@toyoyo.command(name="import")
+def tyy_import(self, modulename):
+    __import__(modulename.value).setup(self)
+
 @toyoyo.on_execute()
 def on_execute(self, *tokens):
     if not self.__ifstate__:

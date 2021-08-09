@@ -8,6 +8,17 @@ toyoyo error; on line {3}:
 {0}: {1}
 """
 
+class CommandList:
+    def __init__(self):
+        self.__references__ = {}
+    
+    def command(self, name=""):
+        def wrapper(function):
+            link = name or function.__name__
+            self.__references__[link.upper()] = function
+        
+        return wrapper
+    
 class Interpreter:
     def __init__(self, debug=False):
         self.__references__ = {}
@@ -26,6 +37,9 @@ class Interpreter:
         
         return wrapper
     
+    def add_cmdlist(self, cmdlist: CommandList):
+        self.__references__.update(cmdlist.__references__)
+
     def on_execute(self):
         def wrapper(function):
             self.exec_func = function
