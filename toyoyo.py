@@ -45,14 +45,8 @@ def convert(self, original, to):
     if to.type != "STRING":
         self.error("ConversionError", "invalid type specified")
     
-    if to.value == "int":
-        return int(value)
-    elif to.value == "str":
-        return str(value)
-    elif to.value == "float":
-        return float(value)
-    elif to.value == "bool":
-        return bool(value)
+    if to.value in ("int", "str", "float", "bool"):
+        return eval(f"{to.value}({value})")
 
 @toyoyo.command(name="round")
 def tyy_round(self, numbert, decimalt=None):
