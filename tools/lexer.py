@@ -7,7 +7,7 @@ string = re.compile(r'\".*?\"')
 integer = re.compile(r'\d+')
 rfloat = re.compile(r'[0-9]+\.[0-9]+')
 
-operators = ["+", "-", "*", "/", ">", "<", ">=", "<=", "==", ":="]
+operators = ["+", "-", "*", "/", ">", "<", ">=", "<=", "==", "!=", ":="]
 
 class Token:
     def __init__(self, value, type: str):
@@ -34,6 +34,8 @@ def tokenize(line, commands, variables):
             tokens.append(Token(value, "OPERATOR"))
         elif value.lower() in ("true", "false"):
             tokens.append(Token(bool(value), "BOOLEAN"))
+        elif value.lower() in ("null", "none"):
+            tokens.append(Token(None, "BOOLEAN"))
         elif variable.match(value):
             if value in variables:
                 tokens.append(Token(value, "VARIABLE"))

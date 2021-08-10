@@ -1,0 +1,5 @@
+// initalizing the variable with text
+text := "Hello world!"
+
+// printing it out
+yell text

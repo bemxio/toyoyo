@@ -1,0 +1,24 @@
+// getting values from user
+left := input "What is the first number? "
+right := input "what is the second number? "
+operator := input "what is the operator? "
+
+// converting values to integers
+left := convert left "int"
+right := convert right "int"
+result := null
+
+if operator == "+"
+    result := left + right
+elseif operator == "-"
+    result := left - right
+elseif operator == "*"
+    result := left * right
+elseif operator == "/"
+    result := left / right
+elseif result == None
+    yell "wrong operator"
+end
+
+result := convert result "str"
+yell "the result is " + result

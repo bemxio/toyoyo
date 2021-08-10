@@ -4,8 +4,8 @@ just for fun, i wanted to see if i can make a programming language :^)
 it's in alpha stage now, but it's enough to set variables and print them!
 
 ## usage
-type in code to `script.tyy` and then run `python toyoyo.py` in your terminal.
-(gonna add a CLI argument for specifying the script path soon)
+make a `.tyy` file, put all the code in and run `python toyoyo.tyy <path>`.
+if you are working on a pull request, you can use `-d` to have a view of current tokens proccessed.
 
 ## examples
 a classic "Hello world!" script:
@@ -27,6 +27,8 @@ h := 3
 P := a * h / 2
 yell P
 ```
+see more examples in the `examples/` folder!
+
 ## pull requests
 if you want to, then feel free to make pull requests with suggestions
 about what to add and what to correct! :)

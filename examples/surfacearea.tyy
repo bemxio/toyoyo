@@ -1,0 +1,8 @@
+// length of the base side of a triangle
+a := 5
+
+// height of a triangle
+h := 3
+
+P := a * h / 2
+yell P

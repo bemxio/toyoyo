@@ -72,10 +72,9 @@ class Interpreter:
                 self.__references__[first.value](self, *args)
             else:
                 return
-        elif first.type == "INITVAR":
+        elif first.type in ("INITVAR", "VARIABLE"):
             return
         else:
-            #print(first.type, first.value)
             self.error("SyntaxError", "wrong syntax")
 
     def execute_many(self, code, splitter="\n"):
