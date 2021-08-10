@@ -139,3 +139,7 @@ cython_debug/
 
 # Visual Studio Code
 .vscode
+
+# Nutika compiler files
+toyoyo.build/
+toyoyo.dist/
